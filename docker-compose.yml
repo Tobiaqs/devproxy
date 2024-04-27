@@ -1,0 +1,24 @@
+services:
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./proxy_acme.conf:/etc/nginx/proxy_acme.conf:ro
+      - ./proxy_https.conf:/etc/nginx/proxy_https.conf:ro
+      - ./proxy_https_safelist.conf:/etc/nginx/proxy_https_safelist.conf:ro
+      - ./proxy_https_safelist_wg.conf:/etc/nginx/proxy_https_safelist_wg.conf:ro
+    ports:
+      - 80:80
+      - "[::]:8443:8443"
+      - "0.0.0.0:8443:8443"
+      - "[::]:9443:9443"
+      - "0.0.0.0:9443:9443"
+      - "[::]:10443:10443"
+      - "0.0.0.0:10443:10443"
+      - "[::]:11443:11443"
+      - "0.0.0.0:11443:11443"
+      - "[::]:12443:12443"
+      - "0.0.0.0:12443:12443"
+    restart: unless-stopped
+    extra_hosts:
+      - host.docker.internal:host-gateway
